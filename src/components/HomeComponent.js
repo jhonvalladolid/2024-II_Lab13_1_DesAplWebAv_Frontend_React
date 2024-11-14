@@ -7,8 +7,8 @@ const HomeComponent = () => {
   const [dashboardData, setDashboardData] = useState({
     totalClientes: 0,
     totalProductos: 0,
-    newUsers: 0,
-    uniqueVisitors: 0,
+    newClients: 0,
+    NewProduct: 0,
   });
 
   useEffect(() => {
@@ -20,8 +20,8 @@ const HomeComponent = () => {
         setDashboardData({
           totalClientes: clientesResponse.data.length,
           totalProductos: productosResponse.data.length,
-          newUsers: clientesResponse.data.length, // Supongamos que los nuevos usuarios son el total de clientes para este ejemplo
-          uniqueVisitors: Math.floor(Math.random() * 100) + 50, // Valor aleatorio para Visitantes Únicos
+          newClients: clientesResponse.data.length,
+          NewProduct: productosResponse.data.length,
         });
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
@@ -62,7 +62,7 @@ const HomeComponent = () => {
           <Card style={{ backgroundColor: '#fff3e0' }}>
             <CardContent>
               <Typography variant="h5" component="div">
-                {dashboardData.newUsers}
+                {dashboardData.newClients}
               </Typography>
               <Typography color="text.secondary" gutterBottom>
                 Nuevos Usuarios
@@ -74,7 +74,7 @@ const HomeComponent = () => {
           <Card style={{ backgroundColor: '#ffebee' }}>
             <CardContent>
               <Typography variant="h5" component="div">
-                {dashboardData.uniqueVisitors}
+                {dashboardData.NewProduct}
               </Typography>
               <Typography color="text.secondary" gutterBottom>
                 Visitantes Únicos
