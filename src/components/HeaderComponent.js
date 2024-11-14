@@ -11,6 +11,12 @@ const HeaderComponent = () => {
                 <a className='nav-link formato01' href='/'>Inicio</a>
               </li>
               <li className='nav-item'>
+                <a className='nav-link formato01' href='/clientes'>Clientes</a>
+              </li>
+              <li className='nav-item'>
+                <a className='nav-link formato01' href='/productos'>Productos</a>
+              </li>
+              <li className='nav-item'>
                 <a className='nav-link formato01' href='#'>Almacen</a>
               </li>
               <li className='nav-item'>

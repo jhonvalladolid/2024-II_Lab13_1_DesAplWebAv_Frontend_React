@@ -6,6 +6,8 @@ import HeaderComponent from './components/HeaderComponent';
 import ListClientesComponent from './components/ListClienteComponent';
 import AddClienteComponent from './components/AddClienteComponent';
 import FooterComponent from './components/FooterComponent';
+import ListProductoComponents from './components/ListProductoComponents';
+import AddProductoComponent from './components/AddProductoComponent';
 
 function App() {
   return (
@@ -18,6 +20,9 @@ function App() {
             <Route path='clientes' element={<ListClientesComponent></ListClientesComponent>}></Route>
             <Route path='add-cliente' element={<AddClienteComponent></AddClienteComponent>}></Route>
             <Route path='edit-cliente/:id' element={<AddClienteComponent></AddClienteComponent>}></Route>
+            <Route path='productos' element={<ListProductoComponents></ListProductoComponents>}></Route>
+            <Route path='add-producto' element={<AddProductoComponent></AddProductoComponent>}></Route>
+            <Route path='edit-producto/:id' element={<AddProductoComponent></AddProductoComponent>}></Route>
           </Routes>
         </div>
         <FooterComponent></FooterComponent>
