@@ -5,6 +5,8 @@ import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 
 export const ListProductosComponent = () => {
   const [productos, setProductos] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredProductos, setFilteredProductos] = useState([]);
 
   useEffect(() => {
     listarProductos();
@@ -13,7 +15,7 @@ export const ListProductosComponent = () => {
   const listarProductos = () => {
     ProductoService.obtenerTodosLosProductos().then(response => {
       setProductos(response.data);
-      console.log(response.data);
+      setFilteredProductos(response.data);
     }).catch(error => {
       console.log(error);
     });
@@ -27,13 +29,38 @@ export const ListProductosComponent = () => {
     });
   };
 
+  const handleSearchChange = (event) => {
+    const searchValue = event.target.value;
+    setSearchTerm(searchValue);
+    if (searchValue === '') {
+      setFilteredProductos(productos);
+    } else {
+      setFilteredProductos(
+        productos.filter((producto) =>
+          producto.nombre.toLowerCase().includes(searchValue.toLowerCase())
+        )
+      );
+    }
+  };
+
   return (
     <div className='container' style={{ marginTop: "80px" }}>
       <h2 className='text-center'>Listado de Productos</h2>
 
-      <Link to='/add-producto' className='btn btn-primary'>
-        <FaPlus /> Agregar Producto
-      </Link>
+      <div className="d-flex justify-content-between mb-3">
+        <Link to='/add-producto' className='btn btn-primary'>
+          <FaPlus /> Agregar Producto
+        </Link>
+        <div className="input-group" style={{ width: '300px' }}>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Buscar producto por nombre"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </div>
+      </div>
 
       <table className="table table-secondary table-hover" style={{ marginTop: "20px" }}>
         <thead>
@@ -50,7 +77,7 @@ export const ListProductosComponent = () => {
         </thead>
         <tbody>
           {
-            productos.map(producto => (
+            filteredProductos.map(producto => (
               <tr key={producto.id}>
                 <td>{producto.id}</td>
                 <td>{producto.nombre}</td>
