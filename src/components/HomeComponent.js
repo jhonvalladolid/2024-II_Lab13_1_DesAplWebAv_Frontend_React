@@ -1,18 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
+import ClienteService from '../services/ClienteService';
+import ProductoService from '../services/ProductoService';
 
 const HomeComponent = () => {
+  const [dashboardData, setDashboardData] = useState({
+    totalClientes: 0,
+    totalProductos: 0,
+    newUsers: 0,
+    uniqueVisitors: 0,
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const clientesResponse = await ClienteService.getAllClientes();
+        const productosResponse = await ProductoService.obtenerTodosLosProductos();
+
+        setDashboardData({
+          totalClientes: clientesResponse.data.length,
+          totalProductos: productosResponse.data.length,
+          newUsers: clientesResponse.data.length, // Supongamos que los nuevos usuarios son el total de clientes para este ejemplo
+          uniqueVisitors: Math.floor(Math.random() * 100) + 50, // Valor aleatorio para Visitantes Únicos
+        });
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ marginTop: "80px" }}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={3}>
           <Card style={{ backgroundColor: '#f4f6f8' }}>
             <CardContent>
               <Typography variant="h5" component="div">
-                150
+                {dashboardData.totalClientes}
               </Typography>
               <Typography color="text.secondary" gutterBottom>
-                Nuevas Ordenes
+                Total de Clientes
               </Typography>
             </CardContent>
           </Card>
@@ -21,10 +50,10 @@ const HomeComponent = () => {
           <Card style={{ backgroundColor: '#e8f5e9' }}>
             <CardContent>
               <Typography variant="h5" component="div">
-                53%
+                {dashboardData.totalProductos}
               </Typography>
               <Typography color="text.secondary" gutterBottom>
-                Tasa de Rebote
+                Total de Productos
               </Typography>
             </CardContent>
           </Card>
@@ -33,7 +62,7 @@ const HomeComponent = () => {
           <Card style={{ backgroundColor: '#fff3e0' }}>
             <CardContent>
               <Typography variant="h5" component="div">
-                44
+                {dashboardData.newUsers}
               </Typography>
               <Typography color="text.secondary" gutterBottom>
                 Nuevos Usuarios
@@ -45,10 +74,10 @@ const HomeComponent = () => {
           <Card style={{ backgroundColor: '#ffebee' }}>
             <CardContent>
               <Typography variant="h5" component="div">
-                65
+                {dashboardData.uniqueVisitors}
               </Typography>
               <Typography color="text.secondary" gutterBottom>
-                Visitantes Unicos
+                Visitantes Únicos
               </Typography>
             </CardContent>
           </Card>

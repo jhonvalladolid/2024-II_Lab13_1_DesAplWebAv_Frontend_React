@@ -8,6 +8,7 @@ import AddClienteComponent from './components/AddClienteComponent';
 import FooterComponent from './components/FooterComponent';
 import ListProductoComponents from './components/ListProductoComponents';
 import AddProductoComponent from './components/AddProductoComponent';
+import HomeComponent from './components/HomeComponent';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <HeaderComponent></HeaderComponent>
         <div className='container'>
           <Routes>
-            <Route exact path='/' element={<ListClientesComponent></ListClientesComponent>}></Route>
+            <Route exact path='/' element={<HomeComponent></HomeComponent>}></Route>
             <Route path='clientes' element={<ListClientesComponent></ListClientesComponent>}></Route>
             <Route path='add-cliente' element={<AddClienteComponent></AddClienteComponent>}></Route>
             <Route path='edit-cliente/:id' element={<AddClienteComponent></AddClienteComponent>}></Route>
